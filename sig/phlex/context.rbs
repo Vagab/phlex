@@ -1,0 +1,9 @@
+module Phlex::Context
+	def self.new: -> Phlex::Context
+
+	attr_accessor target: Phlex::_Target
+
+	def with_target: (Phlex::_Target) {
+		(?untyped) -> void
+	} -> Phlex::_Target
+end

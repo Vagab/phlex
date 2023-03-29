@@ -1,4 +1,31 @@
 module Phlex
+	type renderable = Phlex::SGML|Class|Proc|Enumerable[renderable]
+
   VERSION: String
-  # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+  module Error
+  end
+
+  ATTRIBUTE_CACHE: _Map[Integer, String]
+  Loader: Zeitwerk::Loader
+
+  class NameError < ::NameError[untyped]
+		include Error
+  end
+
+  interface _Buffer
+  	def <<: (String) -> self
+  end
+
+  interface _Target
+  	def <<: (String) -> self
+   	def length: -> Integer
+    def dup: -> _Target
+    def clear: -> _Target
+  end
+
+  interface _Map[K, V]
+  	def []: (K) -> V
+   	def []=: (K, V) -> V
+  end
 end

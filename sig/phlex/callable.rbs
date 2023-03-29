@@ -1,0 +1,3 @@
+module Phlex::Callable
+	def to_proc: -> Proc
+end

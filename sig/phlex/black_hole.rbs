@@ -1,0 +1,3 @@
+module Phlex::BlackHole
+	extend Phlex::_Target
+end

@@ -1,0 +1,3 @@
+module Phlex::HTML::StandardElements
+	def svg: (**untyped) -> nil
+end

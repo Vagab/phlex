@@ -9,6 +9,7 @@ gem "rubocop"
 gem "sus"
 gem "benchmark-ips"
 gem "yard"
+gem "steep"
 
 group :test do
 	gem "i18n"

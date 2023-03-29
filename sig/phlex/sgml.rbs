@@ -1,0 +1,66 @@
+module Phlex
+  class SGML
+  	@_buffer: Phlex::_Buffer
+   	@_parent: Phlex::SGML
+    @_context: Phlex::Context
+    @_view_context: untyped
+
+    def self.call: (*untyped args, **untyped kwargs) { () -> untyped } -> Phlex::_Buffer
+
+    def self.new: (*untyped args, **untyped kwargs) ?{ () -> untyped } -> instance
+
+    def self.rendered_at_least_once!: () -> void
+
+    def self.element_method?: (Symbol) -> bool
+
+    def template: () ?{ () -> untyped } -> void
+
+    def await: (untyped task) -> untyped
+
+    def call: (?Phlex::_Buffer buffer, ?context: Phlex::Context, ?view_context: untyped?, ?parent: Phlex::SGML?) ?{ (untyped) -> untyped } -> Phlex::_Buffer
+
+    def __final_call__: (?Phlex::_Buffer buffer, ?context: untyped, ?view_context: untyped?, ?parent: untyped?) ?{ (untyped) -> untyped } -> (nil | untyped)
+
+    def plain: (untyped) -> nil
+
+    def whitespace: () ?{ () -> untyped } -> nil
+
+    def comment: () { (untyped) -> untyped } -> nil
+
+    def unsafe_raw: (?String?) -> nil
+
+    def capture: () { (self) -> untyped } -> String
+
+    private
+
+    def flush: () -> nil
+
+    def render: (Phlex::renderable) ?{ (*untyped) -> untyped } -> nil
+
+    def __vanish__: (*untyped args) ?{ (*untyped) -> untyped } -> nil
+
+    def render?: () -> true
+
+    def format_object: (untyped) -> String?
+
+    def around_template: () { () -> untyped } -> nil
+
+    def before_template: () -> nil
+
+    def after_template: () -> nil
+
+    def yield_content: () { (self) -> untyped } -> nil
+
+    def yield_content_with_no_args: () { () -> untyped } -> nil
+
+    def yield_content_with_args: (*untyped args) { (*untyped) -> untyped } -> nil
+
+    def __attributes__: (**untyped) -> String
+
+    def __final_attributes__: (**untyped) -> String
+
+    def __build_attributes__: (untyped, buffer: String) -> String
+
+    def process_attributes: (**untyped) -> untyped
+  end
+end

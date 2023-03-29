@@ -1,0 +1,13 @@
+module Zeitwerk
+	class Loader
+		def self.for_gem: (warn_on_extra_files: bool) -> Zeitwerk::Loader
+
+		def setup: -> void
+		def ignore: (String) -> void
+		def inflector: -> Inflector
+	end
+
+	class Inflector
+		def inflect: (Hash[String, String]) -> void
+	end
+end

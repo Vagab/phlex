@@ -1,0 +1,4 @@
+class Object
+	def self.new: (*untyped, **untyped) -> instance
+	def using: (untyped) -> untyped
+end

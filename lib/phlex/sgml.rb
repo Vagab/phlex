@@ -9,8 +9,8 @@ module Phlex
 	class SGML
 		class << self
 			# Render the view to a String. Arguments are delegated to {.new}.
-			def call(...)
-				new(...).call
+			def call(*args, **kwargs, &block)
+				new(*args, **kwargs, &block).call
 			end
 
 			# Create a new instance of the component.
@@ -37,9 +37,13 @@ module Phlex
 
 				owner = instance_method(method_name).owner
 
-				return true if owner.is_a?(Phlex::Elements) && owner.registered_elements[method_name]
-
-				false
+				case owner
+				when Phlex::Elements
+					# @type var owner: untyped
+					owner.registered_elements[method_name]
+				else
+					false
+				end
 			end
 		end
 
@@ -191,7 +195,7 @@ module Phlex
 		def capture(&block)
 			return "" unless block
 
-			@_context.with_target(+"") { yield_content(&block) }
+			@_context.with_target(+"") { yield_content(&block) } #: String
 		end
 
 		private
@@ -199,8 +203,15 @@ module Phlex
 		# @api private
 		def flush
 			target = @_context.target
-			@_buffer << target.dup
-			target.clear
+			case target
+			when String
+				@_buffer << target.dup
+				target.clear
+			else
+				raise ArgumentError
+			end
+
+			nil
 		end
 
 		# Render another component, block or enumerable
@@ -230,6 +241,7 @@ module Phlex
 			when Enumerable
 				renderable.each { |r| render(r, &block) }
 			when Proc
+				# @type var renderable: ^(untyped) -> untyped
 				yield_content(&renderable)
 			else
 				raise ArgumentError, "You can't render a #{renderable}."

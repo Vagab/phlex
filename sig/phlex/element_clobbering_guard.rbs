@@ -1,0 +1,6 @@
+module Phlex::ElementClobberingGuard : Class
+	def method_added: (Symbol) -> void
+
+	# Abstract
+	def element_method?: (Symbol) -> bool
+end

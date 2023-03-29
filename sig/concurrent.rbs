@@ -1,0 +1,5 @@
+module Concurrent
+	class Map[K, V]
+		include Phlex::_Map[K, V]
+	end
+end

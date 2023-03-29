@@ -1,0 +1,6 @@
+module Phlex::Elements
+	@registered_elements: Phlex::_Map[Symbol, String]
+
+	def class_eval: (String, String, Integer) -> untyped
+	def registered_elements: -> Phlex::_Map[Symbol, String]
+end

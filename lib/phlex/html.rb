@@ -31,15 +31,15 @@ module Phlex
 		end
 
 		# @deprecated use {#plain} instead.
-		def text(...)
+		def text(value)
 			warn "DEPRECATED: The `text` method has been deprecated in favour of `plain`. Please use `plain` instead. The `text` method will be removed in a future version of Phlex. Called from: #{caller.first}"
-			plain(...)
+			plain(value)
 		end
 
 		# Outputs an `<svg>` tag
 		# @return [nil]
 		# @see https://developer.mozilla.org/docs/Web/SVG/Element/svg
-		def svg(...)
+		def svg(*args, **kwargs)
 			super do
 				render Phlex::SVG.new do |svg|
 					yield(svg)

@@ -1,0 +1,27 @@
+module Phlex
+  class HTML < SGML
+    EVENT_ATTRIBUTES: untyped
+
+    UNBUFFERED_MUTEX: untyped
+
+    def self.__unbuffered_class__: () -> untyped
+
+    extend Elements
+
+#    include Helpers
+
+#    include VoidElements
+
+    include StandardElements
+
+    def doctype: () -> nil
+
+    def text: (untyped value) -> untyped
+
+    def svg: (*untyped, **untyped) ?{ (untyped) -> untyped } -> untyped
+
+    def unbuffered: () -> untyped
+
+    extend ElementClobberingGuard
+  end
+end
