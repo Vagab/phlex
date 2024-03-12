@@ -11,6 +11,21 @@ module Phlex
 				new(...).call
 			end
 
+			def inherited(subclass)
+				return unless subclass.name
+				return if subclass.name.start_with?("Sus::")
+				return if subclass.name.start_with?("Phlex::")
+				constant_path = subclass.name.split("::")
+				name = constant_path.pop
+				namespace = Module.const_get(constant_path.join("::"))
+
+				namespace.define_singleton_method(name) do |*args, **kwargs, &block|
+					Thread.current[:__phlex_current__].send(:render,
+						subclass.new(*args, **kwargs), &block
+					)
+				end
+			end
+
 			# Create a new instance of the component.
 			# @note The block will not be delegated {#initialize}. Instead, it will be sent to {#template} when rendering.
 			def new(*args, **kwargs, &block)
@@ -103,6 +118,8 @@ module Phlex
 
 		# @api private
 		def __final_call__(buffer = +"", context: Phlex::Context.new, view_context: nil, parent: nil, fragment: nil, &block)
+			previous_rendering_component = Thread.current[:__phlex_current__]
+			Thread.current[:__phlex_current__] = self
 			@_buffer = buffer
 			@_context = context
 			@_view_context = view_context
@@ -133,6 +150,9 @@ module Phlex
 			end
 
 			buffer << context.buffer unless parent
+
+		ensure
+			Thread.current[:__phlex_current__] = previous_rendering_component
 		end
 
 		# Access the current render context data
