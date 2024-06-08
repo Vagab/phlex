@@ -7,9 +7,9 @@ module Phlex::Kit
 		super
 	end
 
-	def method_missing(name, *args, **kwargs, &block)
+	def method_missing(name, ...)
 		if name[0] == name[0].upcase && constants.include?(name) && const_get(name) && methods.include?(name)
-			public_send(name, *args, **kwargs, &block)
+			public_send(name, ...)
 		else
 			super
 		end
@@ -30,9 +30,9 @@ module Phlex::Kit
 
 		if Class === constant && constant < Phlex::SGML
 			if instance_methods.include?(name)
-				raise NameError, "The instance method `#{name}' is already defined on `#{inspect}`."
+				raise NameError.new("The instance method `#{name}' is already defined on `#{inspect}`.")
 			elsif methods.include?(name)
-				raise NameError, "The method `#{name}' is already defined on `#{inspect}`."
+				raise NameError.new("The method `#{name}' is already defined on `#{inspect}`.")
 			end
 
 			constant.include(self)

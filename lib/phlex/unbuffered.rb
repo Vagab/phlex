@@ -21,7 +21,7 @@ class Phlex::Unbuffered < BasicObject
 		@object.respond_to?(...)
 	end
 
-	def method_missing(name, *args, **kwargs, &block)
+	def method_missing(name, ...)
 		if @object.respond_to?(name)
 
 			__class__.define_method(name) do |*a, **k, &b|
@@ -29,7 +29,7 @@ class Phlex::Unbuffered < BasicObject
 			end
 
 			# Now we've defined this missing method, we can call it.
-			__public_send__(name, *args, **kwargs, &block)
+			__public_send__(name, ...)
 		else
 			super
 		end
@@ -41,7 +41,12 @@ class Phlex::Unbuffered < BasicObject
 	end
 
 	def send(...)
-		@object.send(...)
+		warn "Unbuffered#send is deprecated, use #__send__ instead"
+		@object.__send__(...)
+	end
+
+	def __send__(...)
+		@object.__send__(...)
 	end
 
 	def public_send(...)
